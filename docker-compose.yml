@@ -1,7 +1,7 @@
 services:
   sandbox:
     build: .
-    image: skills-sandbox:local
+    image: ghcr.io/cth/skill-sandbox:latest
     working_dir: /workspace
     volumes:
       - ./:/workspace

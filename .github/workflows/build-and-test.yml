@@ -1,0 +1,56 @@
+name: Build Sandbox & Run Demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build sandbox image
+        run: docker compose build
+
+      - name: Run template skill (smoke test)
+        run: |
+          docker compose run --rm sandbox --skill _template --entry run.py -- hello world
+
+      - name: Run docx-to-pdf demo
+        run: |
+          docker compose run --rm sandbox --skill docx-to-pdf --entry demo.py
+
+      - name: Upload generated PDF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-output-pdf
+          path: skills/docx-to-pdf/demo_output.pdf
+
+  push-image:
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
