@@ -46,20 +46,13 @@ jobs:
 
       - name: Verify Python packages
         run: |
-          docker compose run --rm --entrypoint bash sandbox -c "
-            python -c '
-            import pypdf, pdfplumber, reportlab, docx, pptx, openpyxl
-            import pandas, PIL, imageio, numpy, playwright, yaml
-            import defusedxml, mcp, anthropic, pydantic, rich
-            print(\"All Python imports OK\")
-            '
-          "
+          docker compose run --rm --entrypoint bash sandbox -c \
+            "python -c 'import pypdf,pdfplumber,reportlab,docx,pptx,openpyxl,pandas,PIL,imageio,numpy,playwright,yaml,defusedxml,mcp,anthropic,pydantic,rich; print(\"All Python imports OK\")'"
 
       - name: Verify Node.js packages
         run: |
-          docker compose run --rm --entrypoint bash sandbox -c "
-            node -e \"require('pptxgenjs'); require('docx'); require('pdf-lib'); console.log('All Node imports OK')\"
-          "
+          docker compose run --rm --entrypoint bash sandbox -c \
+            "node -e \"require('pptxgenjs');require('docx');require('pdf-lib');console.log('All Node imports OK')\""
 
       # ── Integration test: docx-to-pdf demo ───────────────
       - name: Run docx-to-pdf demo
