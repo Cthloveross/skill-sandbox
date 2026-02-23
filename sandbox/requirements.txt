@@ -1,0 +1,9 @@
+pytest
+rich
+python-dotenv
+pydantic
+
+# Add common libraries only if multiple skills need them
+reportlab
+python-docx
+openpyxl

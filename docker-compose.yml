@@ -1,0 +1,24 @@
+services:
+  sandbox:
+    build: .
+    image: skills-sandbox:local
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    # Security-ish defaults (good for teammates-only)
+    user: "1000:1000"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+    # Resource limits (prevents accidental runaway)
+    pids_limit: 256
+    mem_limit: 2g
+    cpus: "2"
+
+    # Disable network by default (optional but recommended)
+    network_mode: "none"
