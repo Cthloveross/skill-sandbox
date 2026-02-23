@@ -7,6 +7,10 @@ import os
 
 skill_dir = Path(os.environ.get("SKILL_DIR", Path(__file__).parent))
 
+# Write to /tmp inside container (always writable), fallback to skill_dir locally
+output_dir = Path("/tmp/docx-to-pdf") if Path("/tmp").exists() else skill_dir
+output_dir.mkdir(parents=True, exist_ok=True)
+
 doc = Document()
 
 # Title
@@ -55,6 +59,6 @@ doc.add_paragraph(
     "Generated automatically — no manual installation required.",
 )
 
-output = skill_dir / "demo_input.docx"
+output = output_dir / "demo_input.docx"
 doc.save(str(output))
-print(f"[docx-to-pdf] Created: {output.name}")
+print(f"[docx-to-pdf] Created: {output}")
