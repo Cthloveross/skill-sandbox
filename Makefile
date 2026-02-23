@@ -1,8 +1,31 @@
-build:
+.DEFAULT_GOAL := help
+SKILL  ?= _template
+ENTRY  ?= run.py
+ARGS   ?=
+
+# ── Core commands ──────────────────────────────
+build:  ## Build (or rebuild) the sandbox Docker image
 	docker compose build
 
-run:
+run:    ## Run a skill  →  make run SKILL=pdf ENTRY=scripts/check_fillable_fields.py ARGS="file.pdf"
 	docker compose run --rm sandbox --skill $(SKILL) --entry $(ENTRY) -- $(ARGS)
 
-shell:
-	docker compose run --rm sandbox bash
+run-net:  ## Run a skill WITH network access (mcp-builder, web-artifacts-builder, webapp-testing)
+	docker compose run --rm -e NETWORK=1 --network=default sandbox --skill $(SKILL) --entry $(ENTRY) -- $(ARGS)
+
+shell:  ## Open a bash shell inside the sandbox
+	docker compose run --rm --entrypoint bash sandbox
+
+shell-net:  ## Open a bash shell WITH network access
+	docker compose run --rm --entrypoint bash --network=default sandbox
+
+# ── Utilities ──────────────────────────────────
+list:   ## List all available skills
+	@echo "Available skills:" && echo "─────────────────" && ls -1 skills/ | grep -v '^_'
+
+clean:  ## Remove stopped containers and dangling images
+	docker compose down --remove-orphans
+	docker image prune -f
+
+help:   ## Show this help
+	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*##"}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'

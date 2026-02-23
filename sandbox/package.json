@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
-    "pptxgenjs": "^4.0.1"
+    "pptxgenjs": "^4.0.1",
+    "docx": "^9.1.1",
+    "pdf-lib": "^1.17.1"
   }
 }

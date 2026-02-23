@@ -1,9 +1,38 @@
+# ── Core / Runner ──────────────────────────────
 pytest
 rich
 python-dotenv
 pydantic
+pyyaml
 
-# Add common libraries only if multiple skills need them
-reportlab
+# ── Office documents (docx, pptx, xlsx) ───────
 python-docx
+python-pptx
 openpyxl
+pandas
+defusedxml
+markitdown[pptx]
+
+# ── PDF processing (pdf) ──────────────────────
+reportlab
+pypdf
+pdfplumber
+pypdfium2
+pdf2image
+pytesseract
+Pillow
+
+# ── GIF / Animation (slack-gif-creator) ───────
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.9
+numpy>=1.24.0
+
+# ── MCP / AI (mcp-builder) ────────────────────
+anthropic>=0.39.0
+mcp>=1.1.0
+
+# ── Web testing (webapp-testing) ──────────────
+playwright
+
+# ── Skill creator ─────────────────────────────
+# pyyaml already listed above

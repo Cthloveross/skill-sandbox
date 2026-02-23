@@ -7,8 +7,10 @@ services:
       - ./:/workspace
     environment:
       - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/workspace/sandbox
+      - NODE_PATH=/home/sandbox/node_packages/node_modules
 
-    # Security-ish defaults (good for teammates-only)
+    # Security defaults (good for teammates-only)
     user: "1000:1000"
     cap_drop:
       - ALL
@@ -20,5 +22,5 @@ services:
     mem_limit: 2g
     cpus: "2"
 
-    # Disable network by default (optional but recommended)
+    # Disable network by default (override with `make run-net`)
     network_mode: "none"
