@@ -51,24 +51,18 @@ make clean         # Remove stopped containers & images
 
 ```bash
 # Pattern
-make run SKILL=<name> ENTRY=<script> ARGS="<arguments>"
+make run SKILL=<name> ENTRY=<script>
 
-# Examples
-make run SKILL=_template ENTRY=run.py ARGS="hello world"
-make run SKILL=pdf ENTRY=scripts/check_fillable_fields.py ARGS="myfile.pdf"
-make run SKILL=xlsx ENTRY=scripts/recalc.py ARGS="spreadsheet.xlsx"
-make run SKILL=pptx ENTRY=scripts/thumbnail.py ARGS="deck.pptx"
-make run SKILL=slack-gif-creator ENTRY=core/gif_builder.py
+# Example: create a Word doc and convert it to PDF
+make run SKILL=docx-to-pdf ENTRY=demo.py
+
+# Open the generated PDF
+open skills/docx-to-pdf/demo_output.pdf
 ```
 
-### Skills that need network
-
-Some skills fetch from CDNs, install npm packages at runtime, or call APIs.  
-Use `make run-net` for those:
+If a skill needs internet access, use `run-net` instead:
 
 ```bash
-make run-net SKILL=mcp-builder ENTRY=scripts/evaluation.py
-make run-net SKILL=webapp-testing ENTRY=scripts/with_server.py
 make run-net SKILL=web-artifacts-builder ENTRY=scripts/init-artifact.sh
 ```
 
@@ -76,46 +70,25 @@ make run-net SKILL=web-artifacts-builder ENTRY=scripts/init-artifact.sh
 
 ## 📂 Skills Catalog
 
-### Document Skills
-
-| Skill | What it does | Language | Entry points |
-|-------|-------------|----------|-------------|
-| **docx** | Create, edit & analyze Word documents | Python + Node | `scripts/office/unpack.py`, `scripts/office/pack.py`, `scripts/comment.py` |
-| **pptx** | Create, edit & analyze PowerPoint decks | Python + Node | `scripts/add_slide.py`, `scripts/thumbnail.py`, `scripts/clean.py` |
-| **xlsx** | Create, edit & analyze Excel spreadsheets | Python | `scripts/recalc.py`, `scripts/office/unpack.py` |
-| **pdf** | Read, create, merge, split, OCR, fill forms | Python | `scripts/check_fillable_fields.py`, `scripts/fill_fillable_fields.py`, `scripts/convert_pdf_to_images.py` |
-
-### Creative Skills
-
-| Skill | What it does | Language | Network |
-|-------|-------------|----------|---------|
-| **algorithmic-art** | Generative art with p5.js | JavaScript | ✅ CDN |
-| **canvas-design** | Museum-quality PDF/PNG art (84 bundled fonts) | Python | ❌ |
-| **slack-gif-creator** | Animated GIFs optimized for Slack | Python | ❌ |
-| **theme-factory** | 10 pre-built color+font themes | Markdown (reference) | ❌ |
-| **brand-guidelines** | Anthropic brand colors & typography | Markdown (reference) | ❌ |
-
-### Web & Frontend Skills
-
-| Skill | What it does | Language | Network |
-|-------|-------------|----------|---------|
-| **frontend-design** | Production-grade frontend UI guidelines | Reference | ✅ fonts |
-| **web-artifacts-builder** | React + TS + Tailwind → single HTML artifact | TypeScript | ✅ npm |
-| **webapp-testing** | Browser automation with Playwright | Python | ✅ localhost |
-
-### Communication & Writing Skills
-
-| Skill | What it does | Language | Network |
-|-------|-------------|----------|---------|
-| **doc-coauthoring** | 3-stage collaborative doc writing workflow | Workflow (no code) | ❌ |
-| **internal-comms** | 3P updates, newsletters, FAQ templates | Markdown (reference) | ❌ |
-
-### Developer / Meta Skills
-
-| Skill | What it does | Language | Network |
-|-------|-------------|----------|---------|
-| **mcp-builder** | Build MCP servers + evaluation harness | Python + TS | ✅ API |
-| **skill-creator** | Scaffold, package & validate new skills | Python | ❌ |
+| Skill | Description | Language |
+|-------|------------|----------|
+| **docx** | Create, edit & analyze Word documents | Python + Node |
+| **pptx** | Create, edit & analyze PowerPoint decks | Python + Node |
+| **xlsx** | Create, edit & analyze Excel spreadsheets | Python |
+| **pdf** | Read, create, merge, split, OCR, fill forms | Python |
+| **docx-to-pdf** | Convert Word documents to PDF (demo skill) | Python |
+| **algorithmic-art** | Generative art with p5.js | JavaScript |
+| **canvas-design** | Museum-quality PDF/PNG art with bundled fonts | Python |
+| **slack-gif-creator** | Animated GIFs optimized for Slack | Python |
+| **theme-factory** | 10 pre-built color + font themes | Reference |
+| **brand-guidelines** | Brand colors & typography reference | Reference |
+| **frontend-design** | Production-grade frontend UI guidelines | Reference |
+| **web-artifacts-builder** | React + TS + Tailwind → single HTML artifact | TypeScript |
+| **webapp-testing** | Browser automation with Playwright | Python |
+| **doc-coauthoring** | Collaborative doc writing workflow | Workflow |
+| **internal-comms** | Internal comms & newsletter templates | Reference |
+| **mcp-builder** | Build & evaluate MCP servers | Python + TS |
+| **skill-creator** | Scaffold, package & validate new skills | Python |
 
 ---
 
