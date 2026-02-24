@@ -20,7 +20,7 @@ Clone → build → run. That's it.
 
 ```bash
 # 1. Clone
-git clone <YOUR_REPO_URL>
+git clone https://github.com/Cthloveross/skill-sandbox.git
 cd skills-sandbox
 
 # 2. Build the sandbox image (first time takes ~3-5 min)
