@@ -36,3 +36,6 @@ playwright
 
 # ── Skill creator ─────────────────────────────
 # pyyaml already listed above
+
+# ── Verifier ──────────────────────────────────
+psutil

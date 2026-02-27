@@ -19,6 +19,13 @@ shell:  ## Open a bash shell inside the sandbox
 shell-net:  ## Open a bash shell WITH network access
 	docker compose run --rm --entrypoint bash --network=default sandbox
 
+# ── Verification ───────────────────────────────
+verify:  ## Verify a skill for malicious behavior  →  make verify SKILL=docx-to-pdf
+	docker compose run --rm --entrypoint python sandbox -m verifier.scan_skill --skill $(SKILL)
+
+verify-all:  ## Verify ALL skills for malicious behavior
+	docker compose run --rm --entrypoint python sandbox -m verifier.scan_skill --all
+
 # ── Utilities ──────────────────────────────────
 list:   ## List all available skills
 	@echo "Available skills:" && echo "─────────────────" && ls -1 skills/ | grep -v '^_'

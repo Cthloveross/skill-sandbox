@@ -7,7 +7,7 @@ services:
       - ./:/workspace
     environment:
       - PYTHONUNBUFFERED=1
-      - PYTHONPATH=/workspace/sandbox
+      - PYTHONPATH=/workspace:/workspace/sandbox
       - NODE_PATH=/home/sandbox/node_packages/node_modules
 
     # Security defaults (good for teammates-only)
